@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
 import { isAuthenticated } from "@/lib/auth";
 import { slugify } from "@/lib/cakes";
+import { getSupabaseAdmin, CAKE_IMAGES_BUCKET } from "@/lib/supabase-admin";
 
-const UPLOAD_DIR = path.join(process.cwd(), "public", "images", "cakes");
 const ALLOWED_TYPES: Record<string, string> = {
   "image/jpeg": "jpg",
   "image/png": "png",
@@ -39,11 +37,21 @@ export async function POST(request: NextRequest) {
 
   const baseName = slugify(file.name.replace(/\.[^/.]+$/, "")) || "cake";
   const fileName = `${baseName}-${Date.now()}.${extension}`;
-  const filePath = path.join(UPLOAD_DIR, fileName);
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  await fs.mkdir(UPLOAD_DIR, { recursive: true });
-  await fs.writeFile(filePath, buffer);
 
-  return NextResponse.json({ url: `/images/cakes/${fileName}` });
+  const supabase = getSupabaseAdmin();
+  const { error } = await supabase.storage
+    .from(CAKE_IMAGES_BUCKET)
+    .upload(fileName, buffer, { contentType: file.type, upsert: false });
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  const { data: publicUrlData } = supabase.storage
+    .from(CAKE_IMAGES_BUCKET)
+    .getPublicUrl(fileName);
+
+  return NextResponse.json({ url: publicUrlData.publicUrl });
 }
