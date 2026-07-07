@@ -5,7 +5,6 @@ import type { Cake } from "@/lib/types";
 import { SizeSelector } from "@/components/SizeSelector";
 import { WhatsappButton } from "@/components/WhatsappButton";
 import { buildWhatsappOrderLink } from "@/lib/whatsapp";
-import { formatPrice } from "@/lib/utils";
 
 export function CakeOrderForm({ cake }: { cake: Cake }) {
   const [size, setSize] = useState(cake.sizes[0]);
@@ -57,9 +56,8 @@ export function CakeOrderForm({ cake }: { cake: Cake }) {
         />
       </label>
 
-      <div className="flex items-center justify-between rounded-2xl bg-blush-light px-5 py-4">
-        <span className="text-sm font-medium text-chocolate/70">Total</span>
-        <span className="text-xl font-bold text-chocolate">{formatPrice(size.price)}</span>
+      <div className="rounded-2xl bg-blush-light px-5 py-4 text-center text-sm text-chocolate/70">
+        Message us on WhatsApp and we&apos;ll confirm the price for you.
       </div>
 
       <WhatsappButton href={link} className="w-full">

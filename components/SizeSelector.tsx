@@ -1,7 +1,7 @@
 "use client";
 
 import type { CakeSize } from "@/lib/types";
-import { cn, formatPrice } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface SizeSelectorProps {
   sizes: CakeSize[];
@@ -26,7 +26,7 @@ export function SizeSelector({ sizes, selected, onSelect }: SizeSelectorProps) {
                 : "border-blush-light bg-white text-chocolate/70 hover:border-blush"
             )}
           >
-            {size.label} · {formatPrice(size.price)}
+            {size.label}
           </button>
         ))}
       </div>

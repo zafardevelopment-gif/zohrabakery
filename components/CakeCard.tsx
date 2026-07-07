@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Cake } from "@/lib/types";
-import { formatPrice } from "@/lib/utils";
 
 interface CakeCardProps {
   cake: Cake;
@@ -9,8 +8,6 @@ interface CakeCardProps {
 }
 
 export function CakeCard({ cake, priority = false }: CakeCardProps) {
-  const startingPrice = Math.min(...cake.sizes.map((s) => s.price));
-
   return (
     <Link
       href={`/cakes/${cake.id}`}
@@ -38,8 +35,8 @@ export function CakeCard({ cake, priority = false }: CakeCardProps) {
         <h3 className="mt-1 text-lg font-semibold text-chocolate">{cake.name}</h3>
         <p className="mt-1 line-clamp-2 text-sm text-chocolate/70">{cake.description}</p>
         <div className="mt-4 flex items-center justify-between">
-          <span className="text-base font-bold text-chocolate">
-            From {formatPrice(startingPrice)}
+          <span className="text-sm font-semibold text-blush-dark">
+            View sizes &amp; order
           </span>
           <span className="rounded-full border border-chocolate/20 px-3 py-1 text-xs font-medium text-chocolate/80">
             {cake.sizes.length} size{cake.sizes.length > 1 ? "s" : ""}

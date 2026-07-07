@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllCakes, getCakeById } from "@/lib/cakes";
 import { CakeOrderForm } from "@/components/CakeOrderForm";
-import { formatPrice } from "@/lib/utils";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -20,11 +19,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const cake = await getCakeById(slug);
   if (!cake) return {};
 
-  const startingPrice = Math.min(...cake.sizes.map((s) => s.price));
-
   return {
     title: cake.name,
-    description: `${cake.description} Starting from ${formatPrice(startingPrice)}. Order on WhatsApp from Zohra Bakery, Kishanganj.`,
+    description: `${cake.description} Order on WhatsApp from Zohra Bakery, Kishanganj.`,
     openGraph: {
       images: [{ url: cake.image }],
     },
