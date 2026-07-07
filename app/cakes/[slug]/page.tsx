@@ -9,6 +9,10 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+// Re-fetch from Supabase periodically so admin panel changes (edits, price
+// updates, new cakes) show up without needing a redeploy.
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const cakes = await getAllCakes();
   return cakes.map((cake) => ({ slug: cake.id }));

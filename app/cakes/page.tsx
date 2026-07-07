@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { getAllCakes, getCategories } from "@/lib/cakes";
 import { CakeCatalog } from "@/components/CakeCatalog";
 
+// Re-fetch from Supabase periodically so admin panel changes (add/edit/
+// delete/feature toggle) show up without needing a redeploy.
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Cake Menu",
   description:

@@ -6,6 +6,10 @@ import { WhatsappButton } from "@/components/WhatsappButton";
 import { buildWhatsappClassEnquiryLink, buildWhatsappGeneralLink } from "@/lib/whatsapp";
 import { TAGLINE } from "@/lib/constants";
 
+// Re-fetch from Supabase periodically so admin panel changes (add/edit/
+// delete/feature toggle) show up without needing a redeploy.
+export const revalidate = 60;
+
 const TRUST_POINTS = [
   {
     title: "Homemade With Love",
