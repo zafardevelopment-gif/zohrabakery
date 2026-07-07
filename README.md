@@ -35,10 +35,14 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 `ADMIN_PASSWORD` is the only password used to log in to `/admin`. There is no
 separate user/account system.
 
-The Supabase variables are used **only** for storing uploaded cake photos in
-Supabase Storage (bucket name: `zohra-cake-images`). Cake catalog data (name,
-price, description, etc.) still lives in `data/cakes.json` — Supabase is not
-involved in that part.
+The Supabase variables are used for **both**:
+
+- The cake catalog itself — stored in the `zb_cakes` table (see
+  `supabase/migrations/`).
+- Uploaded cake photos — stored in Supabase Storage, bucket `zohra-cake-images`.
+
+There is no local JSON file or local disk storage involved anymore, which is
+why the admin panel works correctly on serverless hosts like Vercel.
 
 ## Managing the Cake Catalog (Admin Panel)
 
@@ -49,31 +53,25 @@ involved in that part.
 3. **Edit a cake**: click "Edit" on any cake in the list.
 4. **Delete a cake**: click "Delete" (asks for confirmation first).
 
-Cake name/category/description/sizes/prices are written directly to
-[`data/cakes.json`](data/cakes.json). Uploaded photos are sent to **Supabase
-Storage** (bucket `zohra-cake-images`) instead of the local filesystem, so
-image uploads work correctly even on serverless hosts like Vercel.
+All of the above read/write the `zb_cakes` table in Supabase through
+[`lib/cakes.ts`](lib/cakes.ts), and photo uploads go to the `zohra-cake-images`
+Storage bucket through [`app/api/admin/upload/route.ts`](app/api/admin/upload/route.ts).
+Changes appear on the live site immediately — no rebuild or redeploy needed,
+and this works the same way on Vercel as it does locally.
 
-### Important note for Vercel deployments
+### One-time Supabase setup
 
-Vercel's serverless functions have a **read-only filesystem** except for
-`/tmp`, which does not persist between requests or deployments. That means:
+Run these once in the Supabase SQL Editor for your project (see
+`supabase/migrations/`):
 
-- **Image uploads are unaffected** — they go to Supabase Storage, which
-  persists normally in production.
-- The admin panel's "add/edit/delete cake" actions (which still write to
-  `data/cakes.json`) **will not persist on Vercel** — writes will appear to
-  succeed but disappear on the next cold start/deploy. This only affects
-  cake text/price data, not photos.
-- If you need catalog edits to persist on Vercel too, migrate
-  `data/cakes.json` to a real database — for example a `cakes` table in the
-  same Supabase project. Only `lib/cakes.ts` would need to change; every
-  page/component calls the functions exported from it
-  (`getAllCakes`, `getCakeById`, `getFeaturedCakes`, `getCategories`,
-  `saveAllCakes`) rather than touching the JSON file directly.
-- If you deploy to a traditional Node.js server (a VPS, Docker container, etc.
-  with a persistent disk) instead of Vercel's serverless functions, the
-  file-based catalog works as-is with no changes needed.
+1. `001_zb_cakes.sql` — creates the `zb_cakes` table with public read access
+   (RLS) and no public write access (writes go through the service role key
+   from the server only).
+2. `002_seed_zb_cakes.sql` — seeds the original 10 sample cakes. Safe to
+   re-run; it upserts by `id`.
+
+Also create a **public** Storage bucket named `zohra-cake-images` (Storage →
+New bucket → Public bucket) if it doesn't already exist.
 
 ## Changing the WhatsApp Number
 
@@ -105,18 +103,18 @@ components/
   CakeCard.tsx, SizeSelector.tsx, CakeOrderForm.tsx, WhatsappButton.tsx, ...
   admin/                 Admin-only UI components
 lib/
-  cakes.ts               Data access layer (reads/writes data/cakes.json)
+  cakes.ts               Data access layer — reads/writes the zb_cakes Supabase table
   whatsapp.ts            buildWhatsappOrderLink / buildWhatsappClassEnquiryLink
   auth.ts                Simple password + signed-cookie admin session
-  supabase-admin.ts       Server-only Supabase client (used for image uploads only)
+  supabase-admin.ts       Server-only Supabase client (used for image uploads)
   constants.ts           Business details (name, phone, address, WhatsApp number)
-data/cakes.json          Cake catalog (source of truth for v1)
+supabase/migrations/     One-time SQL to create + seed the zb_cakes table
 public/images/cakes/     Placeholder cake photos (bundled with the app, not uploaded)
 ```
 
 ## Updating Cake Photos
 
-Each cake's `image` field in `data/cakes.json` (or the admin panel) can be:
+Each cake's `image` field (set via the admin panel) can be:
 
 - A Supabase Storage URL — automatically set when you upload a photo through
   the admin panel's "Choose Photo" / drag-and-drop box.
@@ -142,5 +140,6 @@ npm run build
    - `SUPABASE_SERVICE_ROLE_KEY`
 4. Deploy.
 
-See the note above about `data/cakes.json` not persisting catalog edits on
-Vercel (image uploads are unaffected since they use Supabase Storage).
+Make sure the Supabase one-time setup (table + storage bucket) described
+above has been done in your Supabase project before relying on the admin
+panel in production.

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAuthenticated } from "@/lib/auth";
-import { getAllCakes, saveAllCakes, slugify } from "@/lib/cakes";
+import { cakeIdExists, createCake, getAllCakes, slugify } from "@/lib/cakes";
 import type { Cake } from "@/lib/types";
 
 export async function GET() {
@@ -25,10 +25,9 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const cakes = await getAllCakes();
   const id = slugify(body.name);
 
-  if (cakes.some((c) => c.id === id)) {
+  if (await cakeIdExists(id)) {
     return NextResponse.json(
       { error: "A cake with a similar name already exists." },
       { status: 409 }
@@ -45,8 +44,7 @@ export async function POST(request: NextRequest) {
     sizes: body.sizes,
   };
 
-  cakes.push(newCake);
-  await saveAllCakes(cakes);
+  const created = await createCake(newCake);
 
-  return NextResponse.json(newCake, { status: 201 });
+  return NextResponse.json(created, { status: 201 });
 }
