@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff8f5"/>
+      <stop offset="100%" stop-color="#fce4ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <ellipse cx="200" cy="245" rx="120" ry="14" fill="#3b1620" opacity="0.08"/>
+  <rect x="90" y="150" width="220" height="70" rx="10" fill="#f7d6e0"/>
+  <rect x="105" y="105" width="190" height="60" rx="10" fill="#e0527a"/>
+  <rect x="120" y="70" width="160" height="50" rx="10" fill="#fff"/>
+  <circle cx="200" cy="60" r="10" fill="#e37fa8"/>
+  <rect x="196" y="35" width="8" height="28" rx="3" fill="#d4a24e"/>
+  <path d="M60 220 Q 200 205 340 220 L 340 235 Q 200 220 60 235 Z" fill="#3b1620" opacity="0.06"/>
+  <text x="200" y="280" font-family="Georgia, serif" font-size="20" fill="#3b1620" text-anchor="middle" opacity="0.55">Strawberry</text>
+</svg>

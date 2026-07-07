@@ -1,0 +1,194 @@
+[
+  {
+    "id": "tiramisu-cake",
+    "name": "Tiramisu Cake",
+    "category": "Specialty",
+    "description": "Classic Italian-inspired layers with a coffee-kissed finish and a light mascarpone cream. (Sample pricing — update in admin panel.)",
+    "image": "/images/cakes/tiramisu.svg",
+    "featured": true,
+    "sizes": [
+      {
+        "label": "0.5 kg",
+        "price": 450
+      },
+      {
+        "label": "1 kg",
+        "price": 850
+      }
+    ]
+  },
+  {
+    "id": "velvet-cake",
+    "name": "Velvet Cake",
+    "category": "Classic",
+    "description": "Rich, blush-red velvet sponge with silky cream cheese frosting. (Sample pricing — update in admin panel.)",
+    "image": "/images/cakes/velvet.svg",
+    "featured": true,
+    "sizes": [
+      {
+        "label": "0.5 kg",
+        "price": 400
+      },
+      {
+        "label": "1 kg",
+        "price": 750
+      },
+      {
+        "label": "1.5 kg",
+        "price": 1100
+      }
+    ]
+  },
+  {
+    "id": "strawberry-cake",
+    "name": "Strawberry Cake",
+    "category": "Fresh Fruit",
+    "description": "Soft vanilla sponge layered with fresh strawberry compote and cream. (Sample pricing — update in admin panel.)",
+    "image": "/images/cakes/strawberry.svg",
+    "featured": true,
+    "sizes": [
+      {
+        "label": "0.5 kg",
+        "price": 380
+      },
+      {
+        "label": "1 kg",
+        "price": 700
+      }
+    ]
+  },
+  {
+    "id": "rasmalai-cake",
+    "name": "Rasmalai Cake",
+    "category": "Fusion",
+    "description": "A homely fusion of soft rasmalai and cream sponge — a Zohra Bakery favourite. (Sample pricing — update in admin panel.)",
+    "image": "/images/cakes/rasmalai.svg",
+    "featured": true,
+    "sizes": [
+      {
+        "label": "0.5 kg",
+        "price": 420
+      },
+      {
+        "label": "1 kg",
+        "price": 800
+      }
+    ]
+  },
+  {
+    "id": "chocolate-cake",
+    "name": "Chocolate Cake",
+    "category": "Classic",
+    "description": "Deep, moist chocolate sponge with silky chocolate ganache. A timeless favourite. (Sample pricing — update in admin panel.)",
+    "image": "/images/cakes/chocolate.svg",
+    "featured": true,
+    "sizes": [
+      {
+        "label": "0.5 kg",
+        "price": 380
+      },
+      {
+        "label": "1 kg",
+        "price": 700
+      },
+      {
+        "label": "1.5 kg",
+        "price": 1000
+      },
+      {
+        "label": "2 kg",
+        "price": 1300
+      }
+    ]
+  },
+  {
+    "id": "cheese-cake",
+    "name": "Cheese Cake",
+    "category": "Specialty",
+    "description": "Creamy, melt-in-the-mouth cheesecake baked fresh to order. (Sample pricing — update in admin panel.)",
+    "image": "/images/cakes/cheesecake.svg",
+    "featured": false,
+    "sizes": [
+      {
+        "label": "0.5 kg",
+        "price": 500
+      },
+      {
+        "label": "1 kg",
+        "price": 950
+      }
+    ]
+  },
+  {
+    "id": "honey-bell-cake",
+    "name": "Honey Bell Cake",
+    "category": "Specialty",
+    "description": "Delicate honey-soaked sponge layers with a light, fluffy cream. (Sample pricing — update in admin panel.)",
+    "image": "/images/cakes/honey-bell.svg",
+    "featured": false,
+    "sizes": [
+      {
+        "label": "0.5 kg",
+        "price": 420
+      },
+      {
+        "label": "1 kg",
+        "price": 780
+      }
+    ]
+  },
+  {
+    "id": "mousse-jar-cake",
+    "name": "Mousse Jar Cake",
+    "category": "Jars",
+    "description": "Individual jars layered with soft cake crumbs and rich mousse — perfect for small celebrations. (Sample pricing — update in admin panel.)",
+    "image": "/images/cakes/mousse-jar.svg",
+    "featured": false,
+    "sizes": [
+      {
+        "label": "1 jar",
+        "price": 120
+      },
+      {
+        "label": "Box of 4",
+        "price": 440
+      }
+    ]
+  },
+  {
+    "id": "fresh-fruit-cake",
+    "name": "Fresh Fruit Cake",
+    "category": "Fresh Fruit",
+    "description": "Light vanilla sponge topped with a colourful medley of seasonal fresh fruits. (Sample pricing — update in admin panel.)",
+    "image": "/images/cakes/fresh-fruit.svg",
+    "featured": false,
+    "sizes": [
+      {
+        "label": "0.5 kg",
+        "price": 420
+      },
+      {
+        "label": "1 kg",
+        "price": 800
+      }
+    ]
+  },
+  {
+    "id": "cookies",
+    "name": "Cookies",
+    "category": "Cookies",
+    "description": "Freshly baked, homemade cookies — soft in the centre, golden at the edges. (Sample pricing — update in admin panel.)",
+    "image": "/images/cakes/cookies.svg",
+    "featured": false,
+    "sizes": [
+      {
+        "label": "250 g box",
+        "price": 150
+      },
+      {
+        "label": "500 g box",
+        "price": 280
+      }
+    ]
+  }
+]
