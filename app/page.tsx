@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getFeaturedCakes } from "@/lib/cakes";
+import { getHeroImage } from "@/lib/settings";
 import { CakeCard } from "@/components/CakeCard";
 import { WhatsappButton } from "@/components/WhatsappButton";
 import { buildWhatsappClassEnquiryLink, buildWhatsappGeneralLink } from "@/lib/whatsapp";
@@ -41,7 +42,7 @@ const OCCASIONS = [
 ];
 
 export default async function Home() {
-  const featuredCakes = await getFeaturedCakes();
+  const [featuredCakes, heroImage] = await Promise.all([getFeaturedCakes(), getHeroImage()]);
 
   return (
     <div>
@@ -79,7 +80,7 @@ export default async function Home() {
           <div className="relative mx-auto flex justify-center">
             <div className="animate-float-slow relative h-64 w-64 sm:h-80 sm:w-80">
               <Image
-                src="/images/cakes/velvet.svg"
+                src={heroImage}
                 alt="A signature Zohra Bakery cake"
                 fill
                 priority

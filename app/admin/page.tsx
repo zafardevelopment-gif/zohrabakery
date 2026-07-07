@@ -16,7 +16,13 @@ export default async function AdminDashboardPage() {
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
       <AdminHeader title="Manage Cakes" />
 
-      <div className="mt-6 flex justify-end">
+      <div className="mt-6 flex flex-wrap justify-end gap-3">
+        <Link
+          href="/admin/settings"
+          className="rounded-full border-2 border-chocolate px-5 py-2.5 text-sm font-semibold text-chocolate hover:bg-chocolate hover:text-cream"
+        >
+          Site Settings
+        </Link>
         <Link
           href="/admin/cakes/new"
           className="rounded-full bg-chocolate px-5 py-2.5 text-sm font-semibold text-cream hover:opacity-90"

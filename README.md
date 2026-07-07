@@ -69,9 +69,25 @@ Run these once in the Supabase SQL Editor for your project (see
    from the server only).
 2. `002_seed_zb_cakes.sql` — seeds the original 10 sample cakes. Safe to
    re-run; it upserts by `id`.
+3. `003_zb_settings.sql` — creates the `zb_settings` table (currently used
+   for the homepage hero photo) and seeds a default value.
 
 Also create a **public** Storage bucket named `zohra-cake-images` (Storage →
 New bucket → Public bucket) if it doesn't already exist.
+
+## Site Settings (Homepage Hero Photo)
+
+Go to `/admin` → **Site Settings** to change the round hero photo shown next
+to the "Zohra Bakery" title on the homepage. It's stored in the `zb_settings`
+table via [`lib/settings.ts`](lib/settings.ts) and uses the same
+upload/drag-and-drop widget as cake photos
+([`components/admin/ImagePicker.tsx`](components/admin/ImagePicker.tsx)).
+
+Every photo upload field in the admin panel shows a recommended size/format
+hint so it's clear what to upload:
+
+- Cake photos: 800 × 600px (4:3 landscape)
+- Hero photo: 800 × 800px (square — it's displayed inside a circle)
 
 ## Changing the WhatsApp Number
 
